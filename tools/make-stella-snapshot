@@ -1,0 +1,145 @@
+#! /bin/csh -f
+#
+# Checks whether there were updates to the STELLA sources and
+# creates a new STELLA snapshot if necessary.  Make sure the
+# file "BUILD-FAILED" is removed in case a previous build failed.
+# This is run nightly on blackcat as a cron job and takes about
+# 1h10min to run (scheduled via the associated crontab file
+# `make-snapshots.crontab' which see).
+#
+# Version: $Id$
+#
+# Usage:  make-stella-snapshot
+
+
+# Step 1: set up various directories as well as
+# parameters needed by `make-stella-release':
+
+setenv STELLA_WEB_HOME /nfs/web/isi.edu/htdocs/division3/isd/LOOM/Stella
+setenv STELLA_HOME_PAGE ${STELLA_WEB_HOME}/index.html
+setenv RELEASE_HOME ${STELLA_WEB_HOME}/releases
+setenv BUILD_HOME ${RELEASE_HOME}/build
+setenv CVSROOT /home/loom/CVS-Repository
+#setenv GC_TAR_FILE ${BUILD_HOME}/gc-7.4.4+libatomic_ops.tar.gz  # 7.4.x uses a GPL-ed support library
+setenv GC_TAR_FILE ${BUILD_HOME}/gc-7.2g.tar.gz
+setenv LISP_NAME acl8.1
+setenv LISP /opt/${LISP_NAME}/alisp
+setenv BUILD_FAILED ${BUILD_HOME}/BUILD-FAILED
+setenv BUILD_DISABLED ${BUILD_HOME}/BUILD-DISABLED
+# this should be a comma-spearated list of email addresses:
+setenv STELLA_MAINTAINERS "hans@isi.edu"
+# how many old STELLA snapshots to keep in the `previous' directory:
+setenv MAX_OLD_SNAPSHOTS 1000
+
+cd ${BUILD_HOME}
+# add any non-standard directories to the path:
+set path=(/usr/local/bin /usr/sbin /sbin $path)
+umask 022
+
+
+# Step 2: find the most recent STELLA release/snapshot and check
+# whether there were any recent updates to the sources; exit immediately
+# if a previous build failed:
+
+if (-e ${BUILD_FAILED} || -e ${BUILD_DISABLED}) exit
+
+setenv CURRENT_STELLA `ls -t ${RELEASE_HOME}/stella-*.tar.gz | head -1`
+setenv NOF_MODIFIED_FILES `find ${CVSROOT}/powerloom/sources/stella -name '*.ste,v' -newer $CURRENT_STELLA -fprint /dev/stderr -print | wc -l`
+
+if (${NOF_MODIFIED_FILES} == '0') exit
+
+echo +++ Starting STELLA snapshot build at `date` +++
+setenv CURRENT_STELLA_NAME `basename ${CURRENT_STELLA} .tar.gz | sed -e 's/-snapshot//'`
+setenv STELLA_BOOT_HOME ${BUILD_HOME}/boot/${CURRENT_STELLA_NAME}
+rm -rf ${STELLA_BOOT_HOME}
+tar --directory=${BUILD_HOME}/boot -xzf ${CURRENT_STELLA}
+# install `utilities' system to enable building of the manual:
+cvs -d ${CVSROOT} co -d ${STELLA_BOOT_HOME}/sources/utilities powerloom/sources/utilities
+cvs -d ${CVSROOT} co -d ${STELLA_BOOT_HOME}/sources/systems powerloom/sources/systems/utilities-system.ste
+mkdir ${STELLA_BOOT_HOME}/native/lisp/utilities
+mkdir ${STELLA_BOOT_HOME}/native/lisp/bin/${LISP_NAME}/utilities
+
+
+# Step 3: build a new STELLA release and check whether it passed all tests:
+
+build:
+# make sure we are using the latest version of the scripts:
+(cd scripts; cvs -d ${CVSROOT} update)
+# remove logs and leftover archives from previous builds:
+rm -rf *.log stella*
+setenv BUILD_LOG ${BUILD_HOME}/build-stella.log
+./scripts/make-stella-release >& ${BUILD_LOG}
+chmod g+rwX *
+
+if (`grep -c -e "have \([0-9]*\) banners, found \1 \*" ${BUILD_LOG}` == '0') then
+   # one or more tests failed:
+   touch ${BUILD_FAILED}
+   sendmail ${STELLA_MAINTAINERS} << EOF
+To: ${STELLA_MAINTAINERS}
+Subject: build of new STELLA snapshot failed
+
+See "${BUILD_LOG}" and the associated test log for more details.
+Don't forget to remove the file "${BUILD_FAILED}" after the problem
+has been fixed to re-enable building of snapshots.
+EOF
+   exit
+endif
+
+# if second time around, skip Step 4:
+if ($?CURRENT_PATCH_LEVEL) goto publish
+
+
+# Step 4: the build succeeded, increment the patch level and re-build:
+
+rm -rf version
+cvs -d ${CVSROOT} co -d version powerloom/sources/stella/startup.ste
+
+cd version
+setenv CURRENT_PATCH_LEVEL `sed -ne 's/(defglobal.*stella-patch-level.*INTEGER[^0-9]*\([0-9]*\)[^0-9]*)/\1/p' startup.ste`
+@ NEW_PATCH_LEVEL=($CURRENT_PATCH_LEVEL + 1)
+setenv BUILD_DATE `date +"%Y-%b-%d"`
+
+mv startup.ste startup.ste.in
+sed -e "/(defglobal.*stella-patch-level/s/${CURRENT_PATCH_LEVEL}/${NEW_PATCH_LEVEL}/" startup.ste.in > startup.ste
+rm -f startup.ste.in
+
+cvs -d ${CVSROOT} ci -m "Bumped patch level for automatic snapshot build." startup.ste
+
+cd ${BUILD_HOME}
+goto build
+
+
+# Step 5: copy new snapshot to release directory and update web page:
+
+publish:
+# mark archives as a snapshot:
+mv stella-*.tar.gz `basename stella-*.tar.gz .tar.gz`-snapshot.tar.gz
+mv stella-*.zip `basename stella-*.zip .zip`-snapshot.zip
+
+mv ${RELEASE_HOME}/*snapshot* ${RELEASE_HOME}/previous
+mv stella*snapshot* ${RELEASE_HOME}
+# for snapshots we simply keep the logs in the build directory
+# until they are overwritten during the next snapshot build
+rm -rf stella*
+rm -rf boot/stella*
+
+cd ${RELEASE_HOME}/previous
+set NOF_OLD_SNAPSHOTS=`ls *snapshot*.tar.gz | wc -l`
+
+if ( $NOF_OLD_SNAPSHOTS > $MAX_OLD_SNAPSHOTS) then
+   @ NOF_OLD_SNAPSHOTS_TO_DELETE=($NOF_OLD_SNAPSHOTS - $MAX_OLD_SNAPSHOTS)
+   echo "Deleting $NOF_OLD_SNAPSHOTS_TO_DELETE excess snapshot(s):"
+   rm -f `ls -t *snapshot*.tar.gz | tail -$NOF_OLD_SNAPSHOTS_TO_DELETE`
+   rm -f `ls -t *snapshot*.zip | tail -$NOF_OLD_SNAPSHOTS_TO_DELETE`
+endif
+
+# update Web page with new snapshot link - assumes special naming scheme:
+setenv OLD_VERSION_ID `grep -o 'stella-.*.tar.gz' ${STELLA_HOME_PAGE} | sort | tail -1 | sed -e "s/stella-\(.*\).tar.gz/\1/"`
+setenv NEW_VERSION_ID `ls -t ${RELEASE_HOME}/stella-*.tar.gz | head -1 | sed -e "s/.*stella-\(.*\).tar.gz/\1/"`
+cp -a ${STELLA_HOME_PAGE} ${STELLA_HOME_PAGE}.bak
+sed -e "s/${OLD_VERSION_ID}/${NEW_VERSION_ID}/g" -e "s/\[[0-9]\{4\}-[a-zA-Z]\{3,9\}-[0-9]\{1,2\}\]/\[${BUILD_DATE}\]/" ${STELLA_HOME_PAGE} > ${STELLA_HOME_PAGE}.new
+# update modification timestamp:
+sed -e "/<.-- hhmts start -->/,+1s/^[^<].*/`date +'%b %d, %Y'`/" ${STELLA_HOME_PAGE}.new > ${STELLA_HOME_PAGE}
+rm -f ${STELLA_HOME_PAGE}.new
+
+echo +++ Done with STELLA ${NEW_VERSION_ID} build at `date` +++

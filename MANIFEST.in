@@ -1,0 +1,13 @@
+include stella stella.bat
+include python/stellapi/_libstella_wrappers.cc.body
+recursive-include sources *
+recursive-include native/cpp/stella *
+recursive-exclude native/cpp/stella *.o *.a
+exclude native/cpp/stella/stella
+recursive-exclude sources .git*
+prune native/cpp/stella/cpp-lib/gc-8.0.4
+prune native/cpp/stella/cpp-lib/gc
+prune **/.idea/
+prune **/.libs/
+prune **/.old/
+prune **/.work/

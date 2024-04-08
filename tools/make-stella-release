@@ -1,0 +1,411 @@
+#! /bin/csh -fx
+#
+# Builds and tests a new STELLA release
+#
+# Version: $Id$
+#
+# Usage:  make-stella-release
+#
+# Customize using the following environment variables:
+#
+#  LISP		    Name of the lisp image.  What needs to be typed at top
+#                   level to start Lisp.
+#  LISP2            Name of another Lisp implementation such as CMUCL.
+#  BUILD_HOME       Directory where to build the release
+#  STELLA_BOOT_HOME Directory where to find an existing version of STELLA
+#                   to bootstrap the new one.
+#  GC_TAR_FILE      Pointer to the tar file containing the garbage collector
+
+# Notes:
+# - IMPORTANT: TO GET SMALL PATCH FILES THIS SHOULD ALWAYS BE RUN IN AN XTERM 
+#   WITH 80 CHARACTER WIDTH TO GET IDENTICAL LISP PRETTY PRINTING - the `stty'
+#   doesn't seem to do the trick
+# - when doing the `diff' exclude binary files:
+#      diff -Nur -x '*.ps' old new
+#   however, this would require some support to rebuild the .class and .jar files
+
+# Generating a new release:
+# - update copyright years in file headers where necessary
+# - ensure the version variables in `startup.ste' are incremented
+# - if there were changes in the "Installation" section of the manual,
+#   make sure they are folded into `sources/stella/README' (simply copy
+#   the text as formatted by the Emacs info system).
+# - for extra credit: translate the system with low optimization and high
+#   safety settings and see whether we can generate any casting violations
+#   (run powerloom tests and/or some translations as test tasks)
+# - run this script
+# - check whether the tests generated the number of required banners
+# - test the C++ compilation on other OS's such as CygWin, MinGW, SunOS and OS-X
+# - copy the .tar and .zip file to /nfs/web/htdocs/isd/LOOM/Stella/releases/
+# - copy the .html/.ps/.pdf/.dvi files in sources/stella/doc/ to
+#   /nfs/web/htdocs/isd/LOOM/Stella/documentation/
+# - fix up /nfs/web/htdocs/isd/LOOM/Stella/index.html to point to the new
+#   release - a query replace on the version# should do the trick
+
+
+# TO DO:
+# - see TO DO in sources/stella
+# - improve detection of CYGWIN OS in Makefiles (see mail and follow-ups from
+#   sudhakar kanuri in PowerLoom forum 7/20/07 and after)
+# - investigate error with -e '(make-system "hello-world" :force-translation? TRUE)'
+#   where we get a read error with the C++ version only under Windows/MinGW
+# - fold-in SBCL-related changes (probably ok due to Tom's recent SBCL updates)
+# - support dynamic linking/startup of additional functions/systems; in Lisp
+#   and Java this is fairly easy, in C++ we should be able to use the GNU libtool
+#   (see for example, guile-1.8.1/libguile/dynl.[hc] and the libtool files
+#   ltdl.h and libltdl.[a,so] that seem to come standard with Linux and are
+#   also supported under Windows (we could probably still conditionalize that
+#   for areas where it isn't available).
+
+
+if !($?LISP) setenv LISP "/opt/acl8.1/alisp"
+if !($?LISP2) setenv LISP2 "/opt/cmucl/bin/lisp -batch"
+
+if !($?JAVA_HOME) setenv JAVA_HOME /opt/jdk1.6
+if !($?JAVA_SOURCE_VERSION) setenv JAVA_SOURCE_VERSION 1.4
+if !($?JAVAC_OPTIONS) setenv JAVAC_OPTIONS "-g -O -source ${JAVA_SOURCE_VERSION}"
+set path=(${JAVA_HOME}/bin $path)
+
+# make sure we don't pick up installed libraries by accident:
+unsetenv LD_LIBRARY_PATH
+
+if !($?STELLA_BOOT_HOME) setenv STELLA_BOOT_HOME /home/hans/Projects/powerloom
+if !($?BUILD_HOME) setenv BUILD_HOME /tmp/build-stella
+
+setenv CVSROOT /home/loom/CVS-Repository
+setenv STELLA_HOME ${BUILD_HOME}/new-stella
+if !($?GC_TAR_FILE) setenv GC_TAR_FILE /home/hans/Projects/boehm-weiser-gc/gc6.7.tar.gz
+
+umask 022
+stty cols 80
+if (! -e ${BUILD_HOME}) mkdir -p ${BUILD_HOME}
+
+cat <<EOF
+###########################################################################
+#                                                                         #
+#                        !!! IMPORTANT !!!                                #
+#                                                                         #
+# IF THIS IS A FINAL RELEASE BUILD MAKE SURE THIS SCRIPT RUNS IN AN       #
+# XTERM THAT IS EXACTLY 80 COLUMNS WIDE.  THIS ENSURES IDENTICAL LISP     #
+# PRETTY PRINTING ACROSS RELEASED VERSIONS WHICH KEEPS PATCH FILES SMALL! #
+#                                                                         #
+###########################################################################
+EOF
+
+
+# jump ahead in case we fixed something manually:
+#goto testing
+
+
+# Check-out releasable STELLA sources:
+setenv CVS_FLAGS "-P -kv"
+#setenv CVS_FLAGS "-P"
+cd ${BUILD_HOME}
+rm -rf ${STELLA_HOME}
+cvs co ${CVS_FLAGS} powerloom/sources/stella
+cvs co ${CVS_FLAGS} powerloom/sources/systems/stella-system.ste
+cvs co ${CVS_FLAGS} powerloom/sources/hello-world
+cvs co ${CVS_FLAGS} powerloom/sources/systems/hello-world-system.ste
+cvs co ${CVS_FLAGS} powerloom/stella
+cvs co ${CVS_FLAGS} powerloom/stella.bat
+cvs co ${CVS_FLAGS} powerloom/load-stella.lisp
+cvs co ${CVS_FLAGS} powerloom/translations.lisp
+
+# Generate native and binary directory trees:
+cd ${BUILD_HOME}
+cvs co powerloom/native/lisp/bin/lisp/stella
+cvs co powerloom/native/lisp/bin/lisp/hello-world
+cvs co powerloom/native/lisp/stella
+cvs co powerloom/native/lisp/hello-world
+cvs co powerloom/native/cpp/stella
+cvs co powerloom/native/cpp/hello-world
+cvs co powerloom/native/cpp/lib
+cvs co powerloom/native/java/lib
+cvs co powerloom/native/java/edu/isi/stella
+cvs co powerloom/native/java/edu/isi/hello_world
+
+# "Check out" garbage collector:
+#cvs co ${CVS_FLAGS} -d powerloom/native/cpp/stella/cpp-lib/gc gc
+tar xzf ${GC_TAR_FILE} -C powerloom/native/cpp/stella/cpp-lib/
+cd powerloom/native/cpp/stella/cpp-lib
+# MinGW doesn't understand symbolic links, so we use `gc' as
+# the name of the actual directory and link the version name to it:
+setenv GC_DIR_NAME `echo gc-*`
+mv $GC_DIR_NAME gc
+ln -s gc $GC_DIR_NAME
+
+setenv STELLA_LISP_BINS "acl4.1 acl4.2 acl4.3 acl5.0 acl5.1 acl6.0 acl6.1 acl6.2 acl7.0 acl8.0 acl8.1 acl8.2 acl9.0 acl9.1 acl9.2 aclx.x acl5.0-sun acl6.0-sun acl6.1-sun acl6.2-sun lcl4.0 lcl4.1 lcl mcl lw4.0 lw4.1 cmu18 cmu19 cmu sbcl clisp"
+cd ${BUILD_HOME}/powerloom/native/lisp/bin
+foreach bin (${STELLA_LISP_BINS})
+    rm -rf $bin
+    cp -a lisp $bin
+end
+
+mv ${BUILD_HOME}/powerloom ${STELLA_HOME}
+
+
+#
+# Generate translations:
+#
+
+boot_translate:
+# bootstrap translation
+$LISP << EOF
+(setq *load-cl-struct-stella?* t)
+;; Work around a compiler bug that surfaces with safety=1 in ACL 8.1:
+#+allegro-v8.1
+(setq *stella-compiler-optimization*
+  '(optimize (speed 3) (safety 2) (space 0) (debug 1)))
+(load "${STELLA_BOOT_HOME}/load-stella")
+(load "${STELLA_HOME}/translations")
+(in-package "STELLA")
+(cl-translate-system "stella")
+EOF
+
+# re-translation
+cp -a ${STELLA_HOME}/native/lisp/stella/load-stella.slisp ${STELLA_HOME}/native/lisp/stella/load-stella.lisp
+$LISP << EOF
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+(cl-translate-system "stella")
+EOF
+
+lisp_translate:
+$LISP << EOF
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+(cl-translate-system "stella")
+(unset-stella-feature :use-common-lisp-structs)
+(cl-translate-system "stella")
+EOF
+
+cpp_translate:
+$LISP << EOF
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+(cpp-translate-system "stella")
+EOF
+
+java_translate:
+$LISP << EOF
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+(java-translate-system "stella")
+EOF
+
+
+# Compile and jar up Java files:
+java_compile:
+cd ${STELLA_HOME}/native/java
+${JAVA_HOME}/bin/javac ${JAVAC_OPTIONS} edu/isi/stella/*.java edu/isi/stella/javalib/*.java
+# generate a jar file without sources:
+mv edu edu.real
+cp -a edu.real edu
+find ./edu \( -name '*.java' -or -name 'CVS' -or -name '.rsrc' \) -exec rm -rf {} \;
+${JAVA_HOME}/bin/jar cmf edu/isi/stella/stella-meta.inf lib/stella.jar edu/
+rm -rf edu
+mv edu.real edu
+
+
+# Remove binaries, etc.:
+remove_binaries:
+cd ${STELLA_HOME}
+find ./ \( -name '*fasl' -or -name 'CVS' -or -name '.rsrc' \) -exec rm -rf {} \;
+rm -rf sources/stella/stubs
+
+
+# Build documentation:
+documentation:
+$LISP << EOF
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_BOOT_HOME}/load-stella")
+(in-package "STELLA")
+(make-system "utilities" :common-lisp)
+(CL:load "${STELLA_HOME}/translations")
+(CL:load "PL:sources;stella;doc;make-manual.ste")
+(make-stella-manual)
+EOF
+
+cd ${STELLA_HOME}/sources/stella/doc/
+make manual.pdf manual.html manual.info
+make clean
+if (! -e manual.pdf || ! -e manual.html || ! -e manual.info) then
+   echo "ERRORS when building the manual"
+   exit
+endif
+
+
+# Copy various files:
+cd ${STELLA_HOME}
+cp -a sources/stella/README README-STELLA
+cp -a ${CVSROOT}/CVSROOT/stellalog sources/stella/ChangeLog
+
+
+# Determine which version we are building:
+cd ${STELLA_HOME}
+setenv STELLA_VERSION `./stella java | grep "Welcome to STELLA" | sed -e 's/Welcome to STELLA //g'`
+setenv STELLA_VERSION_TAG STELLA_`echo ${STELLA_VERSION} | sed -e 's/[. -]/_/g'`
+setenv STELLA_RELEASE_NAME stella-${STELLA_VERSION}
+
+
+# Now tar/zip it up:
+cd ${STELLA_HOME}/..
+mv ${STELLA_HOME} ${STELLA_RELEASE_NAME}
+setenv STELLA_HOME ${BUILD_HOME}/${STELLA_RELEASE_NAME}
+tar czf ${STELLA_RELEASE_NAME}.tar.gz ${STELLA_RELEASE_NAME}
+# `zip' has a problem with filenames that contain dots; need 2 steps:
+zip -r stella ${STELLA_RELEASE_NAME}
+mv stella.zip ${STELLA_RELEASE_NAME}.zip
+
+
+# Now test it by Lisp, C++, Java and CMUCL compilation
+
+# Uncomment this to avoid extensive STELLA testing:
+#exit
+
+testing:
+
+# Regenerate various variable values if necessary; assume the STELLA
+# tar.gz file exists in the build directory:
+
+if !($?STELLA_RELEASE_NAME) then
+    cd ${BUILD_HOME}
+    setenv STELLA_TAR_FILE stella*.tar.gz
+    if (! -er ${STELLA_TAR_FILE}) then
+        echo ERROR: STELLA tar file does not exist
+        exit
+    endif
+    setenv STELLA_RELEASE_NAME `basename ${STELLA_TAR_FILE} .tar.gz`
+    setenv STELLA_HOME ${BUILD_HOME}/${STELLA_RELEASE_NAME}
+    setenv STELLA_VERSION `echo ${STELLA_HOME} | sed -e "s/.*stella-//"`
+endif
+
+setenv TEST_LOG ${BUILD_HOME}/test-${STELLA_RELEASE_NAME}.log
+
+# remove the build directory and regenerate it from the release tar ball:
+cd ${BUILD_HOME}
+rm -rf ${STELLA_HOME}
+tar xzf ${STELLA_RELEASE_NAME}.tar.gz
+cd ${STELLA_HOME}
+echo diskspace for untarred sources: `du -s`
+
+cd ${STELLA_HOME}/native/cpp/stella
+set NODEBUG_CFLAGS=`grep '^CFLAGS *=.*' Makefile | sed -e 's/.*= *//' -e 's/-g *//'`
+make "CFLAGS=${NODEBUG_CFLAGS}"
+echo '### C++ version created by Lisp ###' >>& ${TEST_LOG}
+./stella c++ >>& ${TEST_LOG}
+cd ${STELLA_HOME}
+echo diskspace for compiled C++ without -g: `du -s`
+
+cd ${STELLA_HOME}
+echo '### Java version created by Lisp ###' >>& ${TEST_LOG}
+./stella java >>& ${TEST_LOG}
+
+cd ${STELLA_HOME}
+./stella c++ -e '(make-system "stella" :common-lisp :force-translation? TRUE)'
+echo '### Lisp version created by C++ ###' >>& ${TEST_LOG}
+$LISP << EOF >>& ${TEST_LOG}
+(load "${STELLA_HOME}/load-stella")
+EOF
+echo diskspace for compiled Lisp: `du -s`
+
+cd ${STELLA_HOME}
+./stella c++ -e '(make-system "stella" :cpp :force-translation? TRUE)'
+cd ${STELLA_HOME}/native/cpp/stella
+make
+echo '### C++ version created by C++ ###' >>& ${TEST_LOG}
+./stella >>& ${TEST_LOG}
+
+cd ${STELLA_HOME}
+./stella c++ -e '(make-system "stella" :java :force-translation? TRUE)'
+cd ${STELLA_HOME}/native/java
+${JAVA_HOME}/bin/javac ${JAVAC_OPTIONS} edu/isi/stella/*.java edu/isi/stella/javalib/*.java
+echo '### Java version created by C++ ###' >>& ${TEST_LOG}
+${JAVA_HOME}/bin/java edu.isi.stella.Stella >>& ${TEST_LOG}
+
+cd ${STELLA_HOME}
+./stella java -e '(make-system "stella" :common-lisp :force-translation? TRUE)'
+echo '### Lisp version created by Java ###' >>& ${TEST_LOG}
+$LISP << EOF >>& ${TEST_LOG}
+(load "${STELLA_HOME}/load-stella")
+EOF
+
+cd ${STELLA_HOME}
+./stella java -e '(make-system "stella" :cpp :force-translation? TRUE)'
+cd ${STELLA_HOME}/native/cpp/stella
+make
+echo '### C++ version created by Java ###' >>& ${TEST_LOG}
+./stella >>& ${TEST_LOG}
+
+cd ${STELLA_HOME}
+./stella java -e '(make-system "stella" :java :force-translation? TRUE)'
+cd ${STELLA_HOME}/native/java
+${JAVA_HOME}/bin/javac ${JAVAC_OPTIONS} edu/isi/stella/*.java edu/isi/stella/javalib/*.java
+echo '### Java version created by Java ###' >>& ${TEST_LOG}
+${JAVA_HOME}/bin/java edu.isi.stella.Stella >>& ${TEST_LOG}
+
+cd ${STELLA_HOME}
+echo '### Struct Lisp version created by Lisp ###' >>& ${TEST_LOG}
+$LISP << EOF >>& ${TEST_LOG}
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+(cl-translate-system "stella")
+EOF
+echo '### Struct Lisp version created by Struct Lisp ###' >>& ${TEST_LOG}
+$LISP << EOF >>& ${TEST_LOG}
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+EOF
+
+echo '### Lisp version compiled by second Lisp ###' >>& ${TEST_LOG}
+$LISP2 << EOF >>& ${TEST_LOG}
+#+cmu (setq *gc-verbose* nil)
+(setq *compile-verbose* nil)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+;; run it to see whether it actually works:
+(cl-translate-system "stella")
+#+cmu (cl-user::quit)
+EOF
+echo '### Lisp version generated by second Lisp ###' >>& ${TEST_LOG}
+$LISP2 << EOF >>& ${TEST_LOG}
+#+cmu (setq *gc-verbose* nil)
+(setq *compile-verbose* nil)
+(load "${STELLA_HOME}/load-stella")
+#+cmu (cl-user::quit)
+EOF
+
+cd ${STELLA_HOME}
+echo '### Struct Lisp version compiled by second Lisp ###' >>& ${TEST_LOG}
+$LISP2 << EOF >>& ${TEST_LOG}
+#+cmu (setq *gc-verbose* nil)
+(setq *compile-verbose* nil)
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+(cl-translate-system "stella")
+#+cmu (cl-user::quit)
+EOF
+echo '### Struct Lisp version generated by second Lisp ###' >>& ${TEST_LOG}
+$LISP2 << EOF >>& ${TEST_LOG}
+#+cmu (setq *gc-verbose* nil)
+(setq *compile-verbose* nil)
+(setq *load-cl-struct-stella?* t)
+(load "${STELLA_HOME}/load-stella")
+(in-package "STELLA")
+#+cmu (cl-user::quit)
+EOF
+
+# Count the generated banners:
+setenv NEEDED `grep -c '### ' ${TEST_LOG}`
+setenv FOUND `grep -c "STELLA ${STELLA_VERSION}" ${TEST_LOG}`
+
+echo "*** Should have ${NEEDED} banners, found ${FOUND} ***"
+
+echo "*** Now manually test C++ compilation under CygWin, MinGW, Darwin, SunOS ***"

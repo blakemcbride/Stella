@@ -1,0 +1,190 @@
+#! /bin/csh -f
+
+# Makefile for powerloom and associated systems
+
+############################################################################
+#                                                                          #
+#  COPYRIGHT (C) UNIVERSITY OF SOUTHERN CALIFORNIA, 1996                   # 
+#  University of Southern California, Information Sciences Institute       #
+#  4676 Admiralty Way                                                      #
+#  Marina Del Rey, California 90292                                        #
+#                                                                          #
+#  This software was developed under the terms and conditions of Contract  #
+#  No. N00014-94-C-0245 between the Defense Advanced Research Projects     #
+#  Agency and the University of Southern California, Information Sciences  # 
+#  Institute.  Use and distribution of this software is further subject    #
+#  to the provisions of that contract and any other agreements developed   #
+#  between the user of the software and the University of Southern         #
+#  California, Information Sciences Institute.  It is supplied "AS IS",    #
+#  without any warranties of any kind.  It is furnished only on the basis  #
+#  that any party who receives it indemnifies and holds harmless the       #
+#  parties who furnish and originate it against any claims, demands, or    #
+#  liabilities connected with using it, furnishing it to others or         #
+#  providing it to a third party.  THIS NOTICE MUST NOT BE REMOVED FROM    #
+#  THE SOFTWARE, AND IN THE EVENT THAT THE SOFTWARE IS DIVIDED, IT SHOULD  #
+#  BE ATTACHED TO EVERY PART.                                              #
+#                                                                          #
+############################################################################
+
+
+# build parameters
+setenv SRC_DIR ${PWD}                              # current directory
+#setenv ACL /usr/local/acl4.2/bin/clim2xm_composer # lisp for hp
+setenv ACL /local/acl4.3/bin/clim2xm_composer      # lisp for sun
+#setenv LOOM /nfs/silo3/melz/bands/loom3.0-hp      # loom for hp
+setenv LOOM /nfs/silo3/melz/bands/loom3.0-sun      # loom for sun
+
+
+switch ($1)
+case 'clean-binaries':
+cd ${SRC_DIR}/BIN-ACL4.2/stella/bootstrap
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.2/stella/cl-lib
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.2/stella
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.2/logic
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.2/translators/idl-translator/idl-to-loom
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.2/translators/idl-translator/idl-to-stella
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.2/translators/loom-translator/loom-to-stella
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.3/stella/bootstrap
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.3/stella/cl-lib
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.3/stella
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.3/logic
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.3/translators/idl-translator/idl-to-loom
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.3/translators/idl-translator/idl-to-stella
+rm -f *
+cd ${SRC_DIR}/BIN-ACL4.3/translators/loom-translator/loom-to-stella
+rm -f *
+breaksw
+
+case 'stella':
+build clean-binaries
+
+#   load bootstrap stella
+cd ${SRC_DIR}/stella
+${ACL} << EOF
+(setq *redefinition-warnings* NIL)
+(setq *bootstrap-stella?* T)
+(load "${SRC_DIR}/stella/load-stella")
+;;  translate stella using bootstrap walker
+(load "${SRC_DIR}/stella/translate-stella")
+EOF
+
+#   reload stella, compiling bootstrap-translated (i.e. .lisp files)
+{ACL} << EOF
+(setq *redefinition-warnings* NIL)
+(setq *bootstrap-stella?* NIL)
+(load "${SRC_DIR}/stella/load-stella")
+;; retranslate stella using the real (i.e., non-bootstrap walker)
+(load "${SRC_DIR}/stella/translate-stella")
+EOF
+
+#   reload stella, compiling real-translated (i.e. .lisp files)
+${ACL} << EOF
+(setq *redefinition-warnings* NIL)
+(setq *bootstrap-stella?* NIL)
+(load "${SRC_DIR}/stella/load-stella")
+EOF
+breaksw
+
+case 'cpp-lib':
+cd ${SRC_DIR}/stella/cpp-lib
+make clean
+make 
+breaksw
+
+case 'logic':
+cd ${SRC_DIR}
+${ACL} << EOF
+(setq *redefinition-warnings* NIL)
+(setq *bootstrap-stella?* NIL)
+(load "${SRC_DIR}/stella/load-stella")
+(load "${SRC_DIR}/logic/translate-logic")
+EOF
+  
+${ACL} << EOF
+(setq *redefinition-warnings* NIL)
+(setq *bootstrap-stella?* NIL)
+(load "${SRC_DIR}/load-powerloom")
+(load "${SRC_DIR}/logic/load-logic")
+EOF
+breaksw
+
+case 'powerloom':
+build stella
+build cpp-lib
+build logic
+breaksw
+
+case 'powerloom-except-logic':
+build stella
+build cpp-lib
+breaksw
+
+case 'idl-parser':
+cd ${SRC_DIR}/translators/idl-translator
+make clean
+make all
+breaksw
+
+case 'idl-to-loom':
+breaksw
+
+case 'idl-to-stella':
+breaksw
+
+case 'loom-to-stella':
+breaksw
+
+case 'translators': 
+# translate translators
+# NOTE: These could be broken into the above cases
+#   but that would require reloading stella
+cd ${SRC_DIR}/translators/idl-translator/idl-to-loom
+${ACL} << EOF
+(setq *redefinition-warnings* NIL)
+(setq *bootstrap-stella?* NIL)
+(load "${SRC_DIR}/stella/load-stella")
+(stella::translate-file "idl-to-loom.ste" stella::TRUE)
+(stella::translate-file "idl-to-loom.ste" stella::FALSE)
+(excl:chdir "${SRC_DIR}/translators/idl-translator/idl-to-stella/")
+
+(stella::translate-file "idl-to-stella.ste" stella::TRUE)
+(stella::translate-file "idl-to-stella.ste" stella::FALSE)
+EOF
+
+# compile translators
+${LOOM} << EOF
+(setq *redefinition-warnings* NIL)
+(setq *bootstrap-stella?* NIL)
+(load "${SRC_DIR}/stella/load-stella")
+(load "${SRC_DIR}/translators/load-translators")
+EOF
+breaksw
+
+case 'translators-and-idl-parser':
+build idl-parser
+build translators
+breaksw
+
+case 'all-except-logic': 
+build powerloom-except-logic
+build translators-and-idl-parser
+breaksw
+
+case 'all': 
+build powerloom 
+build translators-and-idl-parser
+breaksw
+endsw
+

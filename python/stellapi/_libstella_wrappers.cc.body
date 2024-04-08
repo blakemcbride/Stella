@@ -1,0 +1,3659 @@
+/**********  STELLA-specific call wrapper section  **********/
+
+#define STELLA_USE_GC
+#include "stella/stella-system.hh"
+
+extern "C" int callStellaMeth_Rbool_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(bool (stella::Object::*)(void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    ((void (*) (void*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaFun_Rvoid(void* code) {
+  try {
+    ((void (*) ())code)();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP(void* code, void* arg1) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP(void* code, void* arg1) {
+  try {
+    return ((void* (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_Ichar_Ichar_IvoidP(void* code, void* arg1, char arg2, char arg3, void* arg4) {
+  try {
+    ((void (*) (void*, char, char, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_RvoidP(void* code, void* arg1, void** ret2) {
+  try {
+    return ((void* (*) (void*, void**))code)(arg1, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP(void* code, void* arg1) {
+  try {
+    ((void (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((const char* (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return ((void* (*) (void*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((void* (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_RvoidP(void* code, void* arg1, void** ret2) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(void**))(((stella::MethodCodeWrapper*)code)->wrapperValue))(ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_Ibool(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    return ((void* (*) (void*, void*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_IvoidP(void* code, void* arg1) {
+  try {
+    return (((stella::Object*)arg1)->*(bool (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_Ibool(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    ((void (*) (void*, void*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_Ibool_RvoidP(void* code, void* arg1, int arg2, void** ret2) {
+  try {
+    return ((void* (*) (void*, bool, void**))code)(arg1, arg2, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IvoidP(void* code, void* arg1) {
+  try {
+    return (((stella::Object*)arg1)->*(int (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_Iint_Iint(void* code, void* arg1, int arg2, int arg3) {
+  try {
+    return ((bool (*) (void*, int, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_Iint_IvoidP(void* code, void* arg1, int arg2, void* arg3) {
+  try {
+    ((void (*) (void*, int, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IconstcharP_Ibool(void* code, const char* arg1, int arg2) {
+  try {
+    return ((void* (*) (const char*, bool))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" double callStellaFun_Rdouble_Idouble_Idouble(void* code, double arg1, double arg2) {
+  try {
+    return ((double (*) (double, double))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2) {
+  try {
+    return ((bool (*) (const char*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IvoidP_Ibool(void* code, void* arg1, int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(const char* (stella::Object::*)(bool))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Iint(void* code, int arg1) {
+  try {
+    return ((void* (*) (int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IvoidP_Idouble_Ibool_Ibool(void* code, void* arg1, double arg2, int arg3, int arg4) {
+  try {
+    return (((stella::Object*)arg1)->*(const char* (stella::Object::*)(double, bool, bool))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool(void* code) {
+  try {
+    return ((bool (*) ())code)();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_Ibool(void* code, void* arg1, int arg2) {
+  try {
+    return ((void* (*) (void*, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP(void* code, void* arg1) {
+  try {
+    return ((bool (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" char callStellaFun_Rchar_Ichar(void* code, char arg1) {
+  try {
+    return ((char (*) (char))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2) {
+  try {
+    return ((void* (*) (const char*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IvoidP(void* code, const char* arg1, void* arg2) {
+  try {
+    return ((void* (*) (const char*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    ((void (*) (void*, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP(void* code) {
+  try {
+    return ((const char* (*) ())code)();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Ibool(void* code, int arg1) {
+  try {
+    ((void (*) (bool))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_Iint(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    return ((void* (*) (void*, void*, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_IconstcharP_Ibool(void* code, void* arg1, const char* arg2, int arg3) {
+  try {
+    return ((const char* (*) (void*, const char*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Iint_IvoidP(void* code, const char* arg1, int arg2, void* arg3) {
+  try {
+    return ((void* (*) (const char*, int, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3) {
+  try {
+    return ((void* (*) (void*, void*, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP(void* code, void* arg1) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IvoidP_Iint_Iint(void* code, void* arg1, int arg2, int arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(int (stella::Object::*)(int, int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IconstcharP_Rbool(void* code, void* arg1, const char* arg2, int* ret2) {
+  try {
+    return ((void* (*) (void*, const char*, bool*))code)(arg1, arg2, (bool*)ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_IvoidP(void* code, const char* arg1, void* arg2) {
+  try {
+    return ((const char* (*) (const char*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((int (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP(void* code, void* arg1) {
+  try {
+    return ((const char* (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return ((const char* (*) (void*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_IconstcharP(void* code, void* arg1, const char* arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(const char*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_Iint_Iint(void* code, int arg1, int arg2) {
+  try {
+    return ((int (*) (int, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" long long int callStellaFun_Rlonglongint_IvoidP(void* code, void* arg1) {
+  try {
+    return ((long long int (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_Iint(void* code, const char* arg1, int arg2) {
+  try {
+    return ((int (*) (const char*, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2) {
+  try {
+    return ((const char* (*) (const char*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP(void* code, const char* arg1) {
+  try {
+    ((void (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return ((bool (*) (void*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((char (*) (const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_RvoidP_RvoidP(void* code, void* arg1, void** ret2, void** ret3) {
+  try {
+    return ((void* (*) (void*, void**, void**))code)(arg1, ret2, ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    return ((bool (*) (void*, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" double callStellaFun_Rdouble_Iint_Iint_Iint_Iint_Iint_Iint(void* code, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+  try {
+    return ((double (*) (int, int, int, int, int, int))code)(arg1, arg2, arg3, arg4, arg5, arg6);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" double callStellaFun_Rdouble_IvoidP_Ibool(void* code, void* arg1, int arg2) {
+  try {
+    return ((double (*) (void*, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" long long int callStellaMeth_Rlonglongint_Ilonglongint_Ilonglongint(void* code, long long int arg1, long long int arg2) {
+  try {
+    return ((long long int (*) (long long int, long long int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IconstcharP(void* code, void* arg1, const char* arg2) {
+  try {
+    ((void (*) (void*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IcharP(void* code, char* arg1) {
+  try {
+    return ((char (*) (char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IconstcharP_IconstcharP_IconstcharP(void* code, void* arg1, const char* arg2, const char* arg3, const char* arg4) {
+  try {
+    return ((bool (*) (void*, const char*, const char*, const char*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IcharP_IvoidP_Iint_Iint(void* code, char* arg1, void* arg2, int arg3, int arg4) {
+  try {
+    ((void (*) (char*, void*, int, int))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Iint_IvoidP(void* code, int arg1, void* arg2) {
+  try {
+    return ((void* (*) (int, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Idouble(void* code, double arg1) {
+  try {
+    return ((void* (*) (double))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" double callStellaMeth_Rdouble_IvoidP(void* code, void* arg1) {
+  try {
+    return (((stella::Object*)arg1)->*(double (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IvoidP(void* code, void* arg1) {
+  try {
+    return ((int (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IcharP_IvoidP_Iint_Iint(void* code, char* arg1, void* arg2, int arg3, int arg4) {
+  try {
+    return ((int (*) (char*, void*, int, int))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IcharP_Iint(void* code, char* arg1, int arg2) {
+  try {
+    return ((char (*) (char*, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_IvoidP_Iint_IvoidP(void* code, void* arg1, void* arg2, int arg3, void* arg4) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(void*, int, void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IconstcharP(void* code, void* arg1, const char* arg2) {
+  try {
+    return ((bool (*) (void*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_RvoidP(void* code, void* arg1, void* arg2, void** ret2) {
+  try {
+    return ((void* (*) (void*, void*, void**))code)(arg1, arg2, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_Iint_Iint_IconstcharP_Iint_Iint(void* code, const char* arg1, int arg2, int arg3, const char* arg4, int arg5, int arg6) {
+  try {
+    return ((int (*) (const char*, int, int, const char*, int, int))code)(arg1, arg2, arg3, arg4, arg5, arg6);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rint_Ichar(void* code, char arg1) {
+  try {
+    return ((int (*) (char))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IcharP(void* code, char* arg1) {
+  try {
+    return ((const char* (*) (char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IvoidP(void* code, void* arg1) {
+  try {
+    return (((stella::Object*)arg1)->*(const char* (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" double callStellaFun_Rdouble_IvoidP(void* code, void* arg1) {
+  try {
+    return ((double (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP(void* code) {
+  try {
+    return ((void* (*) ())code)();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_IvoidP_IvoidP_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void** ret2) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(void*, void*, void**))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((void* (*) (const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IconstcharP_Ibool_Ibool_RvoidP_RvoidP(void* code, void* arg1, const char* arg2, int arg3, int arg4, void** ret2, void** ret3) {
+  try {
+    return ((bool (*) (void*, const char*, bool, bool, void**, void**))code)(arg1, arg2, arg3, arg4, ret2, ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4, void** ret2) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, void**))code)(arg1, arg2, arg3, arg4, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IvoidP_Iint(void* code, const char* arg1, void* arg2, int arg3) {
+  try {
+    return ((void* (*) (const char*, void*, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IvoidP_Ibool(void* code, const char* arg1, void* arg2, int arg3) {
+  try {
+    return ((void* (*) (const char*, void*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" long long int callStellaFun_Rlonglongint_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((long long int (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Ibool_Ibool_Rint(void* code, const char* arg1, int arg2, int arg3, int* ret2) {
+  try {
+    return ((void* (*) (const char*, bool, bool, int*))code)(arg1, arg2, arg3, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_Ichar(void* code, char arg1) {
+  try {
+    return ((bool (*) (char))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3) {
+  try {
+    ((void (*) (void*, void*, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((bool (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Iint_RvoidP(void* code, const char* arg1, int arg2, void** ret2) {
+  try {
+    return ((void* (*) (const char*, int, void**))code)(arg1, arg2, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(void*, void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_IvoidP_Iint_Iint_Ibool(void* code, void* arg1, void* arg2, int arg3, int arg4, int arg5) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(void*, int, int, bool))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IcharP(void* code, char* arg1) {
+  try {
+    return ((void* (*) (char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Iint(void* code, const char* arg1, int arg2) {
+  try {
+    return ((void* (*) (const char*, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char* callStellaMeth_RcharP_IcharP(void* code, char* arg1) {
+  try {
+    return ((char* (*) (char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_Iint_Iint(void* code, void* arg1, int arg2, int arg3) {
+  try {
+    return ((void* (*) (void*, int, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_IconstcharP_IvoidP(void* code, void* arg1, void* arg2, const char* arg3, void* arg4) {
+  try {
+    ((void (*) (void*, void*, const char*, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Iint_Ibool(void* code, const char* arg1, int arg2, int arg3) {
+  try {
+    return ((void* (*) (const char*, int, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_Ibool_Ibool(void* code, void* arg1, void* arg2, int arg3, int arg4) {
+  try {
+    return ((void* (*) (void*, void*, bool, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IvoidP_IvoidP_Iint(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(int (stella::Object::*)(void*, int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidPP_Iint_Iint_IvoidP(void* code, void** arg1, int arg2, int arg3, void* arg4) {
+  try {
+    ((void (*) (void**, int, int, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_Ibool_RvoidP(void* code, void* arg1, void* arg2, void* arg3, int arg4, void** ret2) {
+  try {
+    return ((void* (*) (void*, void*, void*, bool, void**))code)(arg1, arg2, arg3, arg4, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(void*, void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2, const char* arg3) {
+  try {
+    return ((void* (*) (const char*, const char*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_Ibool(void* code, const char* arg1, int arg2) {
+  try {
+    return ((const char* (*) (const char*, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_Iint_Rint_Rint_Rint(void* code, int arg1, int* ret2, int* ret3, int* ret4) {
+  try {
+    return ((int (*) (int, int*, int*, int*))code)(arg1, ret2, ret3, ret4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_Ibool(void* code, void* arg1, int arg2) {
+  try {
+    ((void (*) (void*, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" double callStellaMeth_Rdouble_Idouble(void* code, double arg1) {
+  try {
+    return ((double (*) (double))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_Ibool_RvoidP_RvoidP_RvoidP(void* code, void* arg1, int arg2, void** ret2, void** ret3, void** ret4) {
+  try {
+    return ((void* (*) (void*, bool, void**, void**, void**))code)(arg1, arg2, ret2, ret3, ret4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IconstcharP_IconstcharP_Iint(void* code, const char* arg1, const char* arg2, int arg3) {
+  try {
+    return ((bool (*) (const char*, const char*, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_IvoidP_Iint(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(void*, int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IvoidP_IvoidP_IconstcharP(void* code, const char* arg1, void* arg2, void* arg3, const char* arg4) {
+  try {
+    return ((void* (*) (const char*, void*, void*, const char*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_Idouble(void* code, double arg1) {
+  try {
+    return ((bool (*) (double))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IvoidP_Ibool(void* code, const char* arg1, void* arg2, int arg3) {
+  try {
+    ((void (*) (const char*, void*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rint_Rint_Rint_RvoidP_Rint_Rint_Rint_Rint(void* code, int* ret2, int* ret3, void** ret4, int* ret5, int* ret6, int* ret7, int* ret8) {
+  try {
+    return ((int (*) (int*, int*, void**, int*, int*, int*, int*))code)(ret2, ret3, ret4, ret5, ret6, ret7, ret8);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_Iint_IvoidP(void* code, void* arg1, int arg2, void* arg3) {
+  try {
+    return ((void* (*) (void*, int, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_Ibool_RvoidP_Rbool(void* code, void* arg1, void* arg2, void* arg3, int arg4, void** ret2, int* ret3) {
+  try {
+    return ((void* (*) (void*, void*, void*, bool, void**, bool*))code)(arg1, arg2, arg3, arg4, ret2, (bool*)ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_Ilonglongint(void* code, long long int arg1) {
+  try {
+    return ((bool (*) (long long int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" char* callStellaFun_RcharP_Iint(void* code, int arg1) {
+  try {
+    return ((char* (*) (int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_RvoidP_RvoidP_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4, void** ret2, void** ret3, void** ret4) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, void**, void**, void**))code)(arg1, arg2, arg3, arg4, ret2, ret3, ret4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IcharP(void* code, char* arg1) {
+  try {
+    return ((int (*) (char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IconstcharP_IvoidP(void* code, const char* arg1, const char* arg2, void* arg3) {
+  try {
+    ((void (*) (const char*, const char*, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Ichar(void* code, const char* arg1, char arg2) {
+  try {
+    return ((void* (*) (const char*, char))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_Ichar(void* code, char arg1) {
+  try {
+    return ((int (*) (char))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Ilonglongint(void* code, long long int arg1) {
+  try {
+    return ((void* (*) (long long int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_Idouble(void* code, void* arg1, double arg2) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(double))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_Idouble(void* code, void* arg1, double arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(double))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IvoidP_Iint_Iint_Ibool_Ibool(void* code, const char* arg1, void* arg2, int arg3, int arg4, int arg5, int arg6) {
+  try {
+    return ((void* (*) (const char*, void*, int, int, bool, bool))code)(arg1, arg2, arg3, arg4, arg5, arg6);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IvoidP_IconstcharP(void* code, void* arg1, const char* arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(int (stella::Object::*)(const char*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" long long int callStellaMeth_Rlonglongint_IvoidP(void* code, void* arg1) {
+  try {
+    return (((stella::Object*)arg1)->*(long long int (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Iint_Iint_Ibool(void* code, const char* arg1, int arg2, int arg3, int arg4) {
+  try {
+    return ((void* (*) (const char*, int, int, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" long long int callStellaFun_Rlonglongint_IvoidP_Ilonglongint(void* code, void* arg1, long long int arg2) {
+  try {
+    return ((long long int (*) (void*, long long int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" char* callStellaFun_RcharP_IvoidP(void* code, void* arg1) {
+  try {
+    return ((char* (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    return ((void* (*) (void*, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_IvoidP_Iint(void* code, const char* arg1, void* arg2, int arg3) {
+  try {
+    return ((int (*) (const char*, void*, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IcharP_Iint_Iint_Iint_Ibool(void* code, char* arg1, int arg2, int arg3, int arg4, int arg5) {
+  try {
+    return ((const char* (*) (char*, int, int, int, bool))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" double callStellaFun_Rdouble_Idouble(void* code, double arg1) {
+  try {
+    return ((double (*) (double))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Idouble(void* code, double arg1) {
+  try {
+    return ((const char* (*) (double))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_Ibool_Ibool(void* code, void* arg1, void* arg2, int arg3, int arg4) {
+  try {
+    ((void (*) (void*, void*, bool, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_IvoidP_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4, void* arg5, void** ret2) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, void*, void**))code)(arg1, arg2, arg3, arg4, arg5, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_IconstcharP(void* code, void* arg1, void* arg2, const char* arg3) {
+  try {
+    ((void (*) (void*, void*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IvoidP_IvoidP(void* code, const char* arg1, void* arg2, void* arg3) {
+  try {
+    ((void (*) (const char*, void*, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void** ret2) {
+  try {
+    return ((void* (*) (void*, void*, void*, void**))code)(arg1, arg2, arg3, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_Iint_Ibool(void* code, void* arg1, int arg2, int arg3) {
+  try {
+    return ((void* (*) (void*, int, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidPP_Iint_Iint_IvoidP(void* code, void** arg1, int arg2, int arg3, void* arg4) {
+  try {
+    return ((void* (*) (void**, int, int, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2) {
+  try {
+    ((void (*) (const char*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IconstcharP_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2, const char* arg3, const char* arg4) {
+  try {
+    return ((void* (*) (const char*, const char*, const char*, const char*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_Iint_IvoidP(void* code, void* arg1, int arg2, void* arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(int, void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_IconstcharP_Iint(void* code, void* arg1, const char* arg2, int arg3) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(const char*, int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Idouble_Iint_Iint_Ibool(void* code, const char* arg1, double arg2, int arg3, int arg4, int arg5) {
+  try {
+    return ((void* (*) (const char*, double, int, int, bool))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IvoidP_IvoidP_IvoidP_IvoidP_Iint(void* code, void* arg1, void* arg2, void* arg3, void* arg4, int arg5) {
+  try {
+    return ((int (*) (void*, void*, void*, void*, int))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" char* callStellaFun_RcharP_IcharP_IconstcharP_IconstcharP(void* code, char* arg1, const char* arg2, const char* arg3) {
+  try {
+    return ((char* (*) (char*, const char*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_Ibool(void* code, void* arg1, int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(bool))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_Ichar(void* code, char arg1) {
+  try {
+    return ((bool (*) (char))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IconstcharP(void* code, void* arg1, const char* arg2) {
+  try {
+    return ((void* (*) (void*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char callStellaFun_Rchar_IvoidP_Rbool(void* code, void* arg1, int* ret2) {
+  try {
+    return ((char (*) (void*, bool*))code)(arg1, (bool*)ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IvoidP_IvoidP(void* code, const char* arg1, void* arg2, void* arg3) {
+  try {
+    return ((void* (*) (const char*, void*, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_RvoidP(void* code, void* arg1, void** ret2) {
+  try {
+    return ((const char* (*) (void*, void**))code)(arg1, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_Ibool(void* code, void* arg1, void* arg2, void* arg3, int arg4) {
+  try {
+    return ((void* (*) (void*, void*, void*, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char callStellaFun_Rchar_IvoidP(void* code, void* arg1) {
+  try {
+    return ((char (*) (void*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_IvoidPP(void* code, void** arg1) {
+  try {
+    return ((bool (*) (void**))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_RvoidP_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void** ret2, void** ret3) {
+  try {
+    return ((void* (*) (void*, void*, void*, void**, void**))code)(arg1, arg2, arg3, ret2, ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IvoidP(void* code, const char* arg1, void* arg2) {
+  try {
+    ((void (*) (const char*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_IconstcharP(void* code, void* arg1, const char* arg2) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(const char*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3) {
+  try {
+    return ((bool (*) (void*, void*, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void** callStellaMeth_RvoidPP_IvoidP(void* code, void* arg1) {
+  try {
+    return (((stella::Object*)arg1)->*(void** (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IvoidP_Ichar(void* code, void* arg1, char arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(char (stella::Object::*)(char))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IconstcharP_Ibool(void* code, void* arg1, const char* arg2, int arg3) {
+  try {
+    ((void (*) (void*, const char*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rint_Iint_Iint_Iint(void* code, int arg1, int arg2, int arg3) {
+  try {
+    return ((int (*) (int, int, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" double callStellaMeth_Rdouble_Idouble_Idouble(void* code, double arg1, double arg2) {
+  try {
+    return ((double (*) (double, double))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IvoidP_Idouble_Rint_Rint_RvoidP(void* code, void* arg1, double arg2, int* ret2, int* ret3, void** ret4) {
+  try {
+    return (((stella::Object*)arg1)->*(int (stella::Object::*)(double, int*, int*, void**))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, ret2, ret3, ret4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_Iint(void* code, int arg1) {
+  try {
+    return ((bool (*) (int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IcharP_Ichar(void* code, char* arg1, char arg2) {
+  try {
+    return ((char (*) (char*, char))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidPP_Iint_IvoidP(void* code, void** arg1, int arg2, void* arg3) {
+  try {
+    ((void (*) (void**, int, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Idouble_Ibool(void* code, double arg1, int arg2) {
+  try {
+    return ((const char* (*) (double, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_Iint_IvoidP(void* code, void* arg1, int arg2, void* arg3) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(int, void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IvoidP_Idouble_Ibool(void* code, void* arg1, double arg2, int arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(const char* (stella::Object::*)(double, bool))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(int (stella::Object::*)(int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_Iint(void* code, int arg1) {
+  try {
+    return ((void* (*) (int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2) {
+  try {
+    return ((int (*) (const char*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(void* (stella::Object::*)(int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_Iint_Ichar_IvoidP_Ibool(void* code, const char* arg1, int arg2, char arg3, void* arg4, int arg5) {
+  try {
+    return ((const char* (*) (const char*, int, char, void*, bool))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_Ibool(void* code, const char* arg1, int arg2) {
+  try {
+    ((void (*) (const char*, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(int (stella::Object::*)(void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_Ilonglongint(void* code, long long int arg1) {
+  try {
+    return ((int (*) (long long int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Ibool(void* code, const char* arg1, int arg2) {
+  try {
+    return ((void* (*) (const char*, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" double callStellaFun_Rdouble(void* code) {
+  try {
+    return ((double (*) ())code)();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return ((int (*) (void*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_Ichar(void* code, void* arg1, char arg2) {
+  try {
+    return ((bool (*) (void*, char))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_Iint_Ibool(void* code, void* arg1, void* arg2, int arg3, int arg4) {
+  try {
+    return ((void* (*) (void*, void*, int, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IconstcharP_IvoidP(void* code, void* arg1, const char* arg2, void* arg3) {
+  try {
+    ((void (*) (void*, const char*, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_IvoidP_IconstcharP_IconstcharP(void* code, void* arg1, void* arg2, void* arg3, const char* arg4, const char* arg5) {
+  try {
+    ((void (*) (void*, void*, void*, const char*, const char*))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_IconstcharP_IconstcharP(void* code, void* arg1, void* arg2, const char* arg3, const char* arg4) {
+  try {
+    ((void (*) (void*, void*, const char*, const char*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" char callStellaFun_Rchar_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((char (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IconstcharP_Ichar_Iint(void* code, const char* arg1, char arg2, int arg3) {
+  try {
+    return ((int (*) (const char*, char, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_IconstcharP_IvoidP(void* code, const char* arg1, const char* arg2, void* arg3) {
+  try {
+    return ((int (*) (const char*, const char*, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Ibool(void* code, int arg1) {
+  try {
+    return ((void* (*) (bool))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" long long int callStellaFun_Rlonglongint_Ilonglongint_Ilonglongint(void* code, long long int arg1, long long int arg2) {
+  try {
+    return ((long long int (*) (long long int, long long int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_IconstcharP_Ibool(void* code, const char* arg1, const char* arg2, int arg3) {
+  try {
+    return ((int (*) (const char*, const char*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Ichar_IvoidP(void* code, char arg1, void* arg2) {
+  try {
+    ((void (*) (char, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2, const char* arg3) {
+  try {
+    return ((const char* (*) (const char*, const char*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Ilonglongint(void* code, long long int arg1) {
+  try {
+    return ((const char* (*) (long long int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_IconstcharP_Iint(void* code, const char* arg1, const char* arg2, int arg3) {
+  try {
+    return ((int (*) (const char*, const char*, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_RconstcharP(void* code, const char* arg1, const char** ret2) {
+  try {
+    return ((const char* (*) (const char*, const char**))code)(arg1, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidPP_IvoidP_Iint(void* code, void** arg1, void* arg2, int arg3) {
+  try {
+    return ((void* (*) (void**, void*, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_IconstcharP_Ichar(void* code, const char* arg1, const char* arg2, char arg3) {
+  try {
+    return ((const char* (*) (const char*, const char*, char))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Iint_IvoidP(void* code, int arg1, void* arg2) {
+  try {
+    ((void (*) (int, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_IconstcharP_IconstcharP_IvoidP_IconstcharP_IvoidP_Ibool(void* code, void* arg1, const char* arg2, const char* arg3, void* arg4, const char* arg5, void* arg6, int arg7) {
+  try {
+    return ((const char* (*) (void*, const char*, const char*, void*, const char*, void*, bool))code)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IconstcharP_IconstcharP_Iint_IconstcharP(void* code, const char* arg1, const char* arg2, int arg3, const char* arg4) {
+  try {
+    return ((const char* (*) (const char*, const char*, int, const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Ibool(void* code, int arg1) {
+  try {
+    return ((const char* (*) (bool))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IconstcharP_Ichar_Ichar(void* code, const char* arg1, char arg2, char arg3) {
+  try {
+    return ((const char* (*) (const char*, char, char))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_Idouble(void* code, double arg1) {
+  try {
+    return ((void* (*) (double))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IvoidP_IvoidP_IvoidP_IvoidP(void* code, const char* arg1, void* arg2, void* arg3, void* arg4, void* arg5) {
+  try {
+    ((void (*) (const char*, void*, void*, void*, void*))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" long long int callStellaMeth_Rlonglongint_IvoidP_Ilonglongint(void* code, void* arg1, long long int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(long long int (stella::Object::*)(long long int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" double callStellaFun_Rdouble_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return ((double (*) (void*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IvoidP(void* code, void* arg1) {
+  try {
+    return (((stella::Object*)arg1)->*(char (stella::Object::*)())(((stella::MethodCodeWrapper*)code)->wrapperValue))();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void** callStellaFun_RvoidPP(void* code) {
+  try {
+    return ((void** (*) ())code)();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Iint_Ichar(void* code, int arg1, char arg2) {
+  try {
+    return ((const char* (*) (int, char))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_Iint_IvoidP(void* code, int arg1, void* arg2) {
+  try {
+    return ((void* (*) (int, void*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Ichar(void* code, char arg1) {
+  try {
+    return ((const char* (*) (char))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" long long int callStellaMeth_Rlonglongint_Ilonglongint(void* code, long long int arg1) {
+  try {
+    return ((long long int (*) (long long int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Iint_IvoidP_Iint_IvoidP(void* code, const char* arg1, int arg2, void* arg3, int arg4, void* arg5) {
+  try {
+    return ((void* (*) (const char*, int, void*, int, void*))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char* callStellaFun_RcharP_Iint_Ichar(void* code, int arg1, char arg2) {
+  try {
+    return ((char* (*) (int, char))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char callStellaFun_Rchar(void* code) {
+  try {
+    return ((char (*) ())code)();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_Rbool(void* code, void* arg1, int* ret2) {
+  try {
+    return ((void* (*) (void*, bool*))code)(arg1, (bool*)ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Iint_Iint_Iint(void* code, int arg1, int arg2, int arg3) {
+  try {
+    return ((void* (*) (int, int, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_IvoidP_IvoidP_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6, void** ret2) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, void*, void*, void**))code)(arg1, arg2, arg3, arg4, arg5, arg6, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((const char* (*) (const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_Ilonglongint(void* code, long long int arg1) {
+  try {
+    return ((int (*) (long long int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IconstcharP_IconstcharP(void* code, void* arg1, const char* arg2, const char* arg3) {
+  try {
+    ((void (*) (void*, const char*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IconstcharP_IconstcharP_IvoidP(void* code, const char* arg1, const char* arg2, const char* arg3, void* arg4) {
+  try {
+    return ((void* (*) (const char*, const char*, const char*, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_Iint_IconstcharP(void* code, const char* arg1, int arg2, const char* arg3) {
+  try {
+    return ((int (*) (const char*, int, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_IvoidP_Ibool(void* code, void* arg1, int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(bool (stella::Object::*)(bool))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_Ibool_Ibool_Rbool(void* code, void* arg1, int arg2, int arg3, int* ret2) {
+  try {
+    return ((bool (*) (void*, bool, bool, bool*))code)(arg1, arg2, arg3, (bool*)ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_Ibool_RconstcharP_RvoidP(void* code, const char* arg1, int arg2, const char** ret2, void** ret3) {
+  try {
+    return ((const char* (*) (const char*, bool, const char**, void**))code)(arg1, arg2, ret2, ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IconstcharP_Ibool_Rbool(void* code, void* arg1, void* arg2, const char* arg3, int arg4, int* ret2) {
+  try {
+    return ((void* (*) (void*, void*, const char*, bool, bool*))code)(arg1, arg2, arg3, arg4, (bool*)ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_IvoidP_Ibool(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(void*, bool))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4) {
+  try {
+    ((void (*) (void*, void*, void*, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_IvoidP_IvoidP_IconstcharP_IconstcharP_IconstcharP_IconstcharP_IconstcharP_IvoidP_IconstcharP(void* code, const char* arg1, void* arg2, void* arg3, const char* arg4, const char* arg5, const char* arg6, const char* arg7, const char* arg8, void* arg9, const char* arg10) {
+  try {
+    return ((const char* (*) (const char*, void*, void*, const char*, const char*, const char*, const char*, const char*, void*, const char*))code)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_Iint_Iint(void* code, int arg1, int arg2) {
+  try {
+    return ((int (*) (int, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IcharP_Ichar_Iint(void* code, char* arg1, char arg2, int arg3) {
+  try {
+    return ((char (*) (char*, char, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" char* callStellaMeth_RcharP_IcharP_Ichar_Ichar(void* code, char* arg1, char arg2, char arg3) {
+  try {
+    return ((char* (*) (char*, char, char))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_RconstcharP(void* code, const char* arg1, const char** ret2) {
+  try {
+    return ((void* (*) (const char*, const char**))code)(arg1, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4) {
+  try {
+    return ((bool (*) (void*, void*, void*, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Iint_Ichar_IvoidP(void* code, int arg1, char arg2, void* arg3) {
+  try {
+    ((void (*) (int, char, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rint_IcharP_Iint_Iint_Iint(void* code, char* arg1, int arg2, int arg3, int arg4) {
+  try {
+    return ((int (*) (char*, int, int, int))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rint_Iint(void* code, int arg1) {
+  try {
+    return ((int (*) (int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_RvoidP_RvoidP_RvoidP(void* code, void* arg1, void** ret2, void** ret3, void** ret4) {
+  try {
+    return ((void* (*) (void*, void**, void**, void**))code)(arg1, ret2, ret3, ret4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_IvoidP_Iint_Ibool(void* code, void* arg1, void* arg2, void* arg3, void* arg4, void* arg5, int arg6, int arg7) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, void*, int, bool))code)(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char* callStellaMeth_RcharP_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(char* (stella::Object::*)(int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IconstcharP_IvoidP(void* code, const char* arg1, void* arg2) {
+  try {
+    return ((void* (*) (const char*, void*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Iint(void* code, int arg1) {
+  try {
+    ((void (*) (int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_Iint_Iint_IcharP_Iint_IvoidP(void* code, const char* arg1, int arg2, int arg3, char* arg4, int arg5, void* arg6) {
+  try {
+    return ((int (*) (const char*, int, int, char*, int, void*))code)(arg1, arg2, arg3, arg4, arg5, arg6);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IconstcharP_IvoidP(void* code, const char* arg1, void* arg2) {
+  try {
+    return ((bool (*) (const char*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_Ibool(void* code, void* arg1, int arg2) {
+  try {
+    return ((const char* (*) (void*, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Iint_Iint(void* code, int arg1, int arg2) {
+  try {
+    return ((void* (*) (int, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_Rbool(void* code, void* arg1, void* arg2, int* ret2) {
+  try {
+    return ((void* (*) (void*, void*, bool*))code)(arg1, arg2, (bool*)ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Iint_IvoidPP_IvoidP(void* code, int arg1, void** arg2, void* arg3) {
+  try {
+    ((void (*) (int, void**, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_Iint_Iint(void* code, const char* arg1, int arg2, int arg3) {
+  try {
+    return ((void* (*) (const char*, int, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_Iint_IvoidP(void* code, const char* arg1, int arg2, void* arg3) {
+  try {
+    return ((const char* (*) (const char*, int, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_Iint(void* code, int arg1) {
+  try {
+    return ((int (*) (int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IconstcharP(void* code, const char* arg1) {
+  try {
+    ((void (*) (const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_IconstcharP_IconstcharP(void* code, void* arg1, const char* arg2, const char* arg3) {
+  try {
+    return ((const char* (*) (void*, const char*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_RvoidP_RvoidP(void* code, const char* arg1, void** ret2, void** ret3) {
+  try {
+    return ((void* (*) (const char*, void**, void**))code)(arg1, ret2, ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((bool (*) (const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IconstcharP_RvoidP(void* code, void* arg1, const char* arg2, void** ret2) {
+  try {
+    return ((void* (*) (void*, const char*, void**))code)(arg1, arg2, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_IconstcharP_IvoidP_Ibool(void* code, const char* arg1, const char* arg2, void* arg3, int arg4) {
+  try {
+    return ((void* (*) (const char*, const char*, void*, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_IvoidP_IconstcharP_IconstcharP(void* code, void* arg1, const char* arg2, const char* arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(bool (stella::Object::*)(const char*, const char*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_Idouble(void* code, double arg1) {
+  try {
+    return ((int (*) (double))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_Iint(void* code, const char* arg1, int arg2) {
+  try {
+    return ((const char* (*) (const char*, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Iint(void* code, int arg1) {
+  try {
+    return ((const char* (*) (int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IconstcharP(void* code, void* arg1, void* arg2, const char* arg3) {
+  try {
+    return ((void* (*) (void*, void*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Iint_Iint_Iint_Iint(void* code, int arg1, int arg2, int arg3, int arg4) {
+  try {
+    ((void (*) (int, int, int, int))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_RvoidP_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4, void** ret2, void** ret3) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, void**, void**))code)(arg1, arg2, arg3, arg4, ret2, ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_Iint_Iint(void* code, const char* arg1, int arg2, int arg3) {
+  try {
+    return ((int (*) (const char*, int, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IvoidP_Iint(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    return ((bool (*) (void*, void*, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IconstcharP_IconstcharP_IvoidP(void* code, void* arg1, const char* arg2, const char* arg3, void* arg4) {
+  try {
+    ((void (*) (void*, const char*, const char*, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_IvoidP_Iint(void* code, void* arg1, void* arg2, void* arg3, void* arg4, void* arg5, int arg6) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, void*, int))code)(arg1, arg2, arg3, arg4, arg5, arg6);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_Iint_Ibool(void* code, void* arg1, void* arg2, int arg3, int arg4) {
+  try {
+    ((void (*) (void*, void*, int, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IconstcharP_IconstcharP_IconstcharP(void* code, const char* arg1, const char* arg2, const char* arg3) {
+  try {
+    return ((const char* (*) (const char*, const char*, const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" double callStellaFun_Rdouble_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((double (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IvoidP_IvoidP_Rint_Rbool(void* code, void* arg1, void* arg2, int* ret2, int* ret3) {
+  try {
+    return ((int (*) (void*, void*, int*, bool*))code)(arg1, arg2, ret2, (bool*)ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_Ichar_Iint_Iint_IvoidP(void* code, const char* arg1, char arg2, int arg3, int arg4, void* arg5) {
+  try {
+    ((void (*) (const char*, char, int, int, void*))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_Ibool_RvoidP(void* code, void* arg1, void* arg2, int arg3, void** ret2) {
+  try {
+    return ((void* (*) (void*, void*, bool, void**))code)(arg1, arg2, arg3, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_IconstcharP_Ichar(void* code, const char* arg1, char arg2) {
+  try {
+    return ((bool (*) (const char*, char))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_Iint(void* code, int arg1) {
+  try {
+    return ((bool (*) (int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" int callStellaFun_Rint_Iint_Rint_Rint_RvoidP(void* code, int arg1, int* ret2, int* ret3, void** ret4) {
+  try {
+    return ((int (*) (int, int*, int*, void**))code)(arg1, ret2, ret3, ret4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" long long int callStellaFun_Rlonglongint_IcharP_Iint_Iint_Iint(void* code, char* arg1, int arg2, int arg3, int arg4) {
+  try {
+    return ((long long int (*) (char*, int, int, int))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IconstcharP_IvoidP_IvoidP(void* code, const char* arg1, const char* arg2, void* arg3, void* arg4) {
+  try {
+    ((void (*) (const char*, const char*, void*, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_Idouble(void* code, void* arg1, double arg2) {
+  try {
+    return ((bool (*) (void*, double))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IcharP_Iint_Iint(void* code, char* arg1, int arg2, int arg3) {
+  try {
+    return ((const char* (*) (char*, int, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IvoidP_IconstcharP(void* code, void* arg1, void* arg2, const char* arg3) {
+  try {
+    return ((bool (*) (void*, void*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" char* callStellaMeth_RcharP_IcharP_IconstcharP_IconstcharP(void* code, char* arg1, const char* arg2, const char* arg3) {
+  try {
+    return ((char* (*) (char*, const char*, const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidPP_Iint_Iint_IvoidP_IvoidP(void* code, void** arg1, int arg2, int arg3, void* arg4, void* arg5) {
+  try {
+    ((void (*) (void**, int, int, void*, void*))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" double callStellaFun_Rdouble_IcharP_Iint_Iint_Iint(void* code, char* arg1, int arg2, int arg3, int arg4) {
+  try {
+    return ((double (*) (char*, int, int, int))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_FLOAT;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IconstcharP_IconstcharP(void* code, void* arg1, const char* arg2, const char* arg3) {
+  try {
+    return ((bool (*) (void*, const char*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_IvoidP_Ibool(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    return ((bool (*) (void*, void*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IconstcharP_IconstcharP_IconstcharP_Ibool_IvoidP(void* code, const char* arg1, const char* arg2, const char* arg3, const char* arg4, int arg5, void* arg6) {
+  try {
+    ((void (*) (const char*, const char*, const char*, const char*, bool, void*))code)(arg1, arg2, arg3, arg4, arg5, arg6);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IconstcharP_IconstcharP_Iint_Iint(void* code, const char* arg1, const char* arg2, int arg3, int arg4) {
+  try {
+    return ((bool (*) (const char*, const char*, int, int))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IconstcharP_IvoidP_IvoidP(void* code, void* arg1, const char* arg2, void* arg3, void* arg4) {
+  try {
+    ((void (*) (void*, const char*, void*, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rint_Iint_IvoidPP(void* code, int arg1, void** arg2) {
+  try {
+    return ((int (*) (int, void**))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_IvoidP_Iint(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(void*, int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_Ibool_Ibool(void* code, void* arg1, int arg2, int arg3) {
+  try {
+    return ((bool (*) (void*, bool, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_IvoidP_IconstcharP(void* code, void* arg1, void* arg2, const char* arg3) {
+  try {
+    return ((const char* (*) (void*, void*, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_Idouble(void* code, void* arg1, double arg2) {
+  try {
+    ((void (*) (void*, double))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Idouble(void* code, double arg1) {
+  try {
+    ((void (*) (double))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" long long int callStellaFun_Rlonglongint_IvoidP_IvoidP(void* code, void* arg1, void* arg2) {
+  try {
+    return ((long long int (*) (void*, void*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IconstcharP_RvoidP(void* code, const char* arg1, void** ret2) {
+  try {
+    return ((void* (*) (const char*, void**))code)(arg1, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_Iint_IvoidPP(void* code, int arg1, void** arg2) {
+  try {
+    ((void (*) (int, void**))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((int (*) (const char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Ichar(void* code, char arg1) {
+  try {
+    return ((void* (*) (char))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_Ichar(void* code, char arg1) {
+  try {
+    return ((void* (*) (char))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IconstcharP_Ibool(void* code, const char* arg1, int arg2) {
+  try {
+    return ((const char* (*) (const char*, bool))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_IvoidP_Ibool(void* code, void* arg1, void* arg2, void* arg3, int arg4) {
+  try {
+    ((void (*) (void*, void*, void*, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rbool_Idouble(void* code, double arg1) {
+  try {
+    return ((bool (*) (double))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_IvoidP_Iint(void* code, void* arg1, void* arg2, int arg3) {
+  try {
+    ((void (*) (void*, void*, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_Ilonglongint(void* code, long long int arg1) {
+  try {
+    return ((void* (*) (long long int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaMeth_Rint_IvoidP_Idouble_Rint_Rint_Rint(void* code, void* arg1, double arg2, int* ret2, int* ret3, int* ret4) {
+  try {
+    return (((stella::Object*)arg1)->*(int (stella::Object::*)(double, int*, int*, int*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, ret2, ret3, ret4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IvoidP_RconstcharP(void* code, void* arg1, const char** ret2) {
+  try {
+    return ((int (*) (void*, const char**))code)(arg1, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Idouble_Ibool(void* code, double arg1, int arg2) {
+  try {
+    return ((void* (*) (double, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_Ichar(void* code, void* arg1, char arg2) {
+  try {
+    ((void (*) (void*, char))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rint_IvoidP_Rbool(void* code, void* arg1, int* ret2) {
+  try {
+    return ((int (*) (void*, bool*))code)(arg1, (bool*)ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IcharP(void* code, char* arg1) {
+  try {
+    return ((void* (*) (char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_IvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4, void* arg5) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, void*))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_Iint_IvoidP_Rdouble(void* code, int arg1, void* arg2, double* ret2) {
+  try {
+    return ((int (*) (int, void*, double*))code)(arg1, arg2, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_Iint_IvoidP(void* code, void* arg1, int arg2, void* arg3) {
+  try {
+    return ((const char* (*) (void*, int, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    return ((int (*) (void*, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_IcharP(void* code, char* arg1) {
+  try {
+    return ((bool (*) (char*))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" char callStellaFun_Rchar_Iint(void* code, int arg1) {
+  try {
+    return ((char (*) (int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IvoidP_Ichar_Iint(void* code, void* arg1, char arg2, int arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(char (stella::Object::*)(char, int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Iint_Iint_Iint_Iint_Iint_Iint_Iint_Idouble(void* code, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, double arg8) {
+  try {
+    return ((void* (*) (int, int, int, int, int, int, int, double))code)(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char* callStellaFun_RcharP_IconstcharP(void* code, const char* arg1) {
+  try {
+    return ((char* (*) (const char*))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Iint_IvoidP_IvoidP_Ibool(void* code, int arg1, void* arg2, void* arg3, int arg4) {
+  try {
+    return ((void* (*) (int, void*, void*, bool))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IconstcharP_Iint_Iint(void* code, const char* arg1, int arg2, int arg3) {
+  try {
+    return ((const char* (*) (const char*, int, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_Ilonglongint(void* code, void* arg1, long long int arg2) {
+  try {
+    return ((bool (*) (void*, long long int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_Iint_IconstcharP(void* code, const char* arg1, int arg2, const char* arg3) {
+  try {
+    return ((const char* (*) (const char*, int, const char*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_Iint_Iint_IconstcharP(void* code, const char* arg1, int arg2, int arg3, const char* arg4) {
+  try {
+    return ((int (*) (const char*, int, int, const char*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Idouble_Iint(void* code, double arg1, int arg2) {
+  try {
+    return ((const char* (*) (double, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_IconstcharP(void* code, void* arg1, const char* arg2) {
+  try {
+    return ((const char* (*) (void*, const char*))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_Ichar_Ibool(void* code, const char* arg1, char arg2, int arg3) {
+  try {
+    return ((const char* (*) (const char*, char, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IconstcharP_Iint_Iint_IconstcharP_Iint_Iint_Rint(void* code, const char* arg1, int arg2, int arg3, const char* arg4, int arg5, int arg6, int* ret2) {
+  try {
+    return ((int (*) (const char*, int, int, const char*, int, int, int*))code)(arg1, arg2, arg3, arg4, arg5, arg6, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_Idouble_IvoidP(void* code, void* arg1, double arg2, void* arg3) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(double, void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_IconstcharP_IvoidP(void* code, void* arg1, const char* arg2, void* arg3) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(const char*, void*))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaMeth_Rbool_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(bool (stella::Object::*)(int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_IvoidP_Ibool(void* code, void* arg1, int arg2) {
+  try {
+    return ((bool (*) (void*, bool))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_RvoidP_RvoidP(void* code, void* arg1, void* arg2, void** ret2, void** ret3) {
+  try {
+    return ((void* (*) (void*, void*, void**, void**))code)(arg1, arg2, ret2, ret3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_Iint_Iint(void* code, int arg1, int arg2) {
+  try {
+    return ((bool (*) (int, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" int callStellaFun_Rbool_Ilonglongint(void* code, long long int arg1) {
+  try {
+    return ((bool (*) (long long int))code)(arg1);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return false;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IvoidP_Idouble_Ibool_Ibool_Ibool(void* code, void* arg1, double arg2, int arg3, int arg4, int arg5) {
+  try {
+    return (((stella::Object*)arg1)->*(const char* (stella::Object::*)(double, bool, bool, bool))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IcharP_Iint_Iint_Iint_IvoidP(void* code, char* arg1, int arg2, int arg3, int arg4, void* arg5) {
+  try {
+    return ((int (*) (char*, int, int, int, void*))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" long long int callStellaMeth_Rlonglongint_Ilonglongint_Iint(void* code, long long int arg1, int arg2) {
+  try {
+    return ((long long int (*) (long long int, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_LONG_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_IvoidP_Iint_IvoidP(void* code, const char* arg1, void* arg2, int arg3, void* arg4) {
+  try {
+    ((void (*) (const char*, void*, int, void*))code)(arg1, arg2, arg3, arg4);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" int callStellaFun_Rint(void* code) {
+  try {
+    return ((int (*) ())code)();
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaMeth_Rvoid_IvoidP_Ichar(void* code, void* arg1, char arg2) {
+  try {
+    (((stella::Object*)arg1)->*(void (stella::Object::*)(char))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_IvoidP_IvoidP_Ibool_RvoidP(void* code, void* arg1, void* arg2, void* arg3, void* arg4, int arg5, void** ret2) {
+  try {
+    return ((void* (*) (void*, void*, void*, void*, bool, void**))code)(arg1, arg2, arg3, arg4, arg5, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Ilonglongint_Iint(void* code, long long int arg1, int arg2) {
+  try {
+    return ((const char* (*) (long long int, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IvoidP_Iint_Iint(void* code, void* arg1, int arg2, int arg3) {
+  try {
+    return ((int (*) (void*, int, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IvoidP_Iint_Iint(void* code, void* arg1, int arg2, int arg3) {
+  try {
+    ((void (*) (void*, int, int))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" void* callStellaMeth_RvoidP_IvoidPP_Iint(void* code, void** arg1, int arg2) {
+  try {
+    return ((void* (*) (void**, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IvoidP_IvoidP_RconstcharP(void* code, void* arg1, void* arg2, const char** ret2) {
+  try {
+    return ((const char* (*) (void*, void*, const char**))code)(arg1, arg2, ret2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_Iint_Iint(void* code, int arg1, int arg2) {
+  try {
+    return ((const char* (*) (int, int))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_IvoidP_IvoidP_Ibool_IvoidP_IvoidP(void* code, void* arg1, void* arg2, int arg3, void* arg4, void* arg5) {
+  try {
+    return ((void* (*) (void*, void*, bool, void*, void*))code)(arg1, arg2, arg3, arg4, arg5);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" const char* callStellaMeth_RconstcharP_IvoidP_Iint_Iint(void* code, void* arg1, int arg2, int arg3) {
+  try {
+    return (((stella::Object*)arg1)->*(const char* (stella::Object::*)(int, int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" void callStellaFun_Rvoid_IconstcharP_Iint_IvoidP(void* code, const char* arg1, int arg2, void* arg3) {
+  try {
+    ((void (*) (const char*, int, void*))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+  }
+}
+
+extern "C" const char* callStellaFun_RconstcharP_IconstcharP_IvoidP_Ibool(void* code, const char* arg1, void* arg2, int arg3) {
+  try {
+    return ((const char* (*) (const char*, void*, bool))code)(arg1, arg2, arg3);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IconstcharP_Iint(void* code, const char* arg1, int arg2) {
+  try {
+    return ((char (*) (const char*, int))(((stella::FunctionCodeWrapper*)code)->wrapperValue))(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+extern "C" void* callStellaFun_RvoidP_Iint_IvoidPP(void* code, int arg1, void** arg2) {
+  try {
+    return ((void* (*) (int, void**))code)(arg1, arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return NULL;
+  }
+}
+
+extern "C" int callStellaFun_Rint_IcharP_Iint_Iint_Iint_Ibool_IvoidP(void* code, char* arg1, int arg2, int arg3, int arg4, int arg5, void* arg6) {
+  try {
+    return ((int (*) (char*, int, int, int, bool, void*))code)(arg1, arg2, arg3, arg4, arg5, arg6);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_INTEGER;
+  }
+}
+
+extern "C" char callStellaMeth_Rchar_IvoidP_Iint(void* code, void* arg1, int arg2) {
+  try {
+    return (((stella::Object*)arg1)->*(char (stella::Object::*)(int))(((stella::MethodCodeWrapper*)code)->wrapperValue))(arg2);
+  }
+  catch (std::exception& e) {
+    stella::callGlobalExceptionHandler(&e);
+    return stella::NULL_CHARACTER;
+  }
+}
+
+
+/**********  end STELLA-specific call wrapper section  **********/

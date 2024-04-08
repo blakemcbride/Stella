@@ -1,0 +1,27 @@
+#! /bin/csh -fv
+#
+#  Generates javadoc for Stella, PowerLoom, Ontosaurus and args
+#  and puts it in a directory called documentation.
+#
+# $Id$
+#
+
+pushd $STELLA_HOME
+
+find native/java/edu/isi/stella -name "[^_]*.java" >! /tmp/$$.files
+find native/java/edu/isi/powerloom -name "[^_]*.java" >> /tmp/$$.files
+find native/java/edu/isi/ontosaurus -name "[^_]*.java" >> /tmp/$$.files
+foreach system ($*)
+ find native/java/$system -name "[^_]*.java" >> /tmp/$$.files
+end
+
+# Do we need to do a sort and uniq on the file list for safety?
+# sort /tmp/$$.files | uniq > /tmp/$$.sfiles
+
+mkdir -p documentation
+javadoc -J-Xmx100m -classpath native/java -d documentation @/tmp/$$.files
+
+# rm /tmp/$$.files
+popd
+
+

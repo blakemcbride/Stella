@@ -1,0 +1,18 @@
+# crontab file to run `make-xxx-snapshot' nightly.
+# Install by running `% crontab make-snapshots.crontab'
+
+# Version: $Id$
+
+# use /bin/sh to run commands, no matter what /etc/passwd says
+SHELL=/bin/sh
+
+# mail any output to hans@isi.edu
+MAILTO=hans@isi.edu
+
+# Columns are <min> <hour> <day-of-month> <month> <day-of-week> <command>
+
+# Make STELLA snapshot  at 1:15am every day - mail any output to $MAIL-TO
+15 1 * * *      /nfs/web/isi.edu/htdocs/division3/isd/LOOM/Stella/releases/build/scripts/make-stella-snapshot
+
+# Make PowerLoom snapshot  at 3:15am every day - mail any output to $MAIL-TO
+15 3 * * *      /nfs/web/isi.edu/htdocs/division3/isd/LOOM/PowerLoom/releases/build/scripts/make-powerloom-snapshot
